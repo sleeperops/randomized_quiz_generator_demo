@@ -6,7 +6,7 @@ def write_question(input_question, file_directory):
     Accepts a question and writes it into a specified file
     """
     with open(file_directory, "a") as fd:  # Writes the question into the specified file
-        fd.write(f'''{input_question}
+        fd.write(f'''Q: {input_question}
 ''')
 
 def write_option(file_directory):
@@ -25,7 +25,8 @@ def write_correct(input_answer, file_directory):
     Accepts and writes the correct answer into the specified file
     """
     with open(file_directory, "a") as question_file:  # Writes the correct answer into the file
-        question_file.write(f'''{input_answer}
+        question_file.write(f'''A: {input_answer}
+///
 ''')
     
 # Runs a loop; accepts and writes the inputs until the user decides to exit
