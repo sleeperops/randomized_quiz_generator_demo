@@ -11,15 +11,14 @@ def write_question(input_question, file_directory):
 
 def write_option(file_directory):
     """
-    Asks for and writes the options into a specified file
+    Asks for the options and writes it into a specified file
     """
-    option_block = ""
+    fd = open(file_directory, "a")
     for char in "abcd":  # Creates a block of string with that contains the options
         option = input(f"Option {char}: ")
-        option_block += f'''{char}). {option}
-'''
-    with open(file_directory) as fd:  # Writes that block of string into the file
-        fd.write(option_block)
+        fd.write(f'''{char}). {option}
+''')
+    fd.close()
 
 def write_correct(input_answer, file_directory):
     """
