@@ -1,5 +1,5 @@
 # Directory of the quiz file that stores all formatted questions
-quiz_directory = r"C:\Users\Pau\Desktop\Computer Engineering notes and more\OOP_Materials\randomized_quiz_generator_demo\quizes\questions"
+quiz_directory = r"quizes/questions.txt"
 def write_question(input_question, file_directory):
     """
     Accepts a question and writes it into a specified file
@@ -50,3 +50,6 @@ while True:
     if user_option == "//":
         break
 
+# Change directory of quizes
+# Add writing
+# Add 
