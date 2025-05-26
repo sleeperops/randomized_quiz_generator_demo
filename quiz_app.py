@@ -1,10 +1,13 @@
-# Rename class 'Question' into 'Item'
+# Rename class 'Item' into 'Item'
+# Quiz files?
+# Check for spelling errors
+
+# Read quiz has to run first and set a value for line list before you can use extract and repack
 
 # Leads to the directory of the file
 quiz_directory = r"quizes/questions.txt"
-lines_list = []  # Stores each lines extracted from the quiz file
 
-class Question:
+class Item:
 
     def __init__(self, question, option_a, option_b, option_c, option_d, correct_answer):
         self.question = question
@@ -20,7 +23,10 @@ def read_quiz(file_directory):
     Accepts the file directory of the quiz file and returns a list with all the questions
     """
     
-    # Uses a context manager to open automatically close the file once the lines have been extracted
+    # Stores each lines extracted from the quiz file
+    lines_list = []  
+
+    # Use a context manager to open and automatically close the file once the lines have been extracted
     with open(file_directory, "r") as quiz:
         temp_lines_list = quiz.readlines()  # Stores each lines of the quiz file to a temporary list before stripping      
         
@@ -34,33 +40,42 @@ def read_quiz(file_directory):
 
     return lines_list  
 
-def read_and_repack(lines_list):
+def extract_and_repack(lines_list):
     """
-    Extracts each lines from the line_list and uses it to create an instance of the class named 'Question'.
+    Extracts each lines from the line_list and uses it to create an instance of the class named 'Item'.
     Accepts a list of lines that is read from the questions.txt file.
-    Returns a list of instances of the class 'Questions'. 
+    Returns a list of instances of the class 'Item'. 
     """
-    quiz_items = []  # A list of objects (referred to as items) of the class 'Question'. The lines from line_list are passed as properties of these items
-   
-    for index, lines in lines_list:  # Loop through 'line_list' using the 'lines' variable to track the current line and 'index' to track its index
-        if str(lines).startswith("Q:") == True:  # If the line starts with the 'Q:' prefix, construct an instance of the class 'Question' with the following properties:
+
+    # A list of objects (referred to as items) of the class 'Item'. The lines from line_list are passed as properties of these items
+    quiz_dict = {}
+
+    # Loop through 'line_list' using the 'lines' variable to track the current line and 'index' to track its index
+    for index, lines in enumerate(lines_list):  
+        if str(lines).startswith("Q:") == True:  # If the line starts with the 'Q:' prefix, construct an instance of the class 'Item' with the following properties:
+            question = lines
             option_a = lines_list[index + 1]
             option_b = lines_list[index + 2]
             option_c = lines_list[index + 3]
             option_d = lines_list[index + 4]
             correct_answer = lines_list[index + 5]
 
-            question_item = Question(lines, option_a, option_b, option_c, option_d, correct_answer)  # Construct an item
-            quiz_items.append(question_item)  # Store the item into a list
+            # Construct an instance of the class 'Item' using the above lines as properties
+            question_item = Item(question, option_a, option_b, option_c, option_d, correct_answer) 
 
-    return quiz_items
+            # Store each item in a dictionary using the property 'question' as the key and the item itself as the value
+            quiz_dict[question_item.question] = question_item 
 
-print(read_and_repack(lines_list))
+    return quiz_dict
 
+# Testing Section-------------------------------------------------
+quiz_lines_list = read_quiz(quiz_directory)
+quiz_items_list = extract_and_repack(quiz_lines_list)
 
-
-
-
-
-# print(read_quiz(quiz_directory))  # returns a list
+print(f"""LINES LIST: 
+      {quiz_lines_list}
+""")
+print(f"""REPACKED LINES LIST:
+       {quiz_items_list}
+""")
 
