@@ -1,4 +1,3 @@
-# Rename class 'Item' into 'Item'
 # Quiz files?
 # Check for spelling errors
 
