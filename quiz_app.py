@@ -3,6 +3,8 @@
 # Read quiz has to run first and set a value for line list before you can use extract and repack
 
 # Leads to the directory of the file
+import random
+
 quiz_directory = r"quizes/questions.txt"
 
 class Item:
@@ -72,14 +74,21 @@ def extract_and_repack(lines_list):
 
     return quiz_dict
 
-# Testing Section-------------------------------------------------
-quiz_lines_list = read_quiz(quiz_directory)
-quiz_items_list = extract_and_repack(quiz_lines_list)
+def shuffle(min,max):
+    """
+    Creates a list of numbers in a random order. 
+    Accepts a minimum and maximum number and returns a randomly ordered list of numbers in that range.
+    """
+    # A list of randomly ordered numbers
+    shuffled_sequence = []
 
-print(f"""LINES LIST: 
-      {quiz_lines_list}
-""")
-print(f"""REPACKED LINES LIST:
-       {quiz_items_list}
-""")
-print((quiz_items_list[1].option_a))
+    while len(shuffled_sequence) != max:  # Loop until the amount of numbers in the list matches the length of the range
+        random_num = random.randint(min, max)  # Generate a random number in the specified range
+        if random_num not in shuffled_sequence:  # If the random number is not yet in the list
+            shuffled_sequence.append(random_num)  # Add it to the list
+
+    return shuffled_sequence
+
+print(shuffle(1,10))
+    
+    
