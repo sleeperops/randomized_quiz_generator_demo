@@ -91,4 +91,47 @@ def shuffle(min,max):
 
 print(shuffle(1,10))
     
-    
+# UI ----------------------
+
+# Initialization
+quiz_lines_list = read_quiz(quiz_directory)
+quiz_items_dict = extract_and_repack(quiz_lines_list)  # List of questions
+
+# Header 
+print("Welcome to the Quiz app")
+print("")
+
+# Program Loop
+while True:
+
+    randomized_index = shuffle(1, len(quiz_items_dict))
+    finished_items = {}
+
+    input_start_option = input("Start the test? (any key to start, x to exit): ")
+
+    if input_start_option.lower() == "x": 
+        break
+    else:
+        for index in randomized_index:
+            print(f""" 
+{quiz_items_dict[index].question}
+{quiz_items_dict[index].option_a}
+{quiz_items_dict[index].option_b}
+{quiz_items_dict[index].option_c}
+{quiz_items_dict[index].option_d}
+""")
+            input_answer = input("Answer: ")
+            answer_state = None  # Wether the answer is correct or incorrect
+            print(f"Correct_answer: {quiz_items_dict[index].correct_answer}")
+
+            # If the answer is the same as the correct answer
+            if f"A: {input_answer.lower()}" == quiz_items_dict[index].correct_answer:  
+                answer_state = True
+
+            # Otherwise
+            else:
+                answer_state = False
+
+            # Record the answer and its state in a list
+            finished_items[index] = answer_state
+    print(finished_items)
