@@ -98,10 +98,10 @@ def display_question(question_dict, question_index):
     """
     return f"""
 {question_dict[question_index].question}
-{question_dict[question_index].option_a}
-{question_dict[question_index].option_b}
-{question_dict[question_index].option_c}
-{question_dict[question_index].option_d}
+a). {question_dict[question_index].option_a}
+b). {question_dict[question_index].option_b}
+c). {question_dict[question_index].option_c}
+d). {question_dict[question_index].option_d}
 """
 
 def score_count(result_summary):
