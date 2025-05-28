@@ -92,46 +92,68 @@ def shuffle(min,max):
 print(shuffle(1,10))
     
 # UI ----------------------
+def display_question(question_dict, question_index):
+    """
+    Displays the item in a questionnaire format.
+    Accepts the dictionary from where the item belongs(question_dict) and the key that corresponds to that item
+    Returns the item in a question-options format
+    """
+    return f"""
+{question_dict[question_index].question}
+{question_dict[question_index].option_a}
+{question_dict[question_index].option_b}
+{question_dict[question_index].option_c}
+{question_dict[question_index].option_d}
+"""
 
+
+# UI ----------------------
 # Initialization
 quiz_lines_list = read_quiz(quiz_directory)
-quiz_items_dict = extract_and_repack(quiz_lines_list)  # List of questions
+quiz_items_dict = extract_and_repack(quiz_lines_list)  # List of questions/items
 
-# Header 
+
+# Header ------------------
 print("Welcome to the Quiz app")
 print("")
 
-# Program Loop
+# Program Loop ------------
 while True:
 
+    # Initialize randomize_index. Stores a random sequence of numbers based on the range of the given dictionary.
     randomized_index = shuffle(1, len(quiz_items_dict))
+
+    # Initialize finished_items dictionary. Records the finished items along with the results.
     finished_items = {}
 
+    # Asks the user for permission to start the test
     input_start_option = input("Start the test? (any key to start, x to exit): ")
 
     if input_start_option.lower() == "x": 
         break
+
     else:
+
+        # Pick a random question from the question dictionary (quiz_item_dict)
         for index in randomized_index:
-            print(f""" 
-{quiz_items_dict[index].question}
-{quiz_items_dict[index].option_a}
-{quiz_items_dict[index].option_b}
-{quiz_items_dict[index].option_c}
-{quiz_items_dict[index].option_d}
-""")
-            input_answer = input("Answer: ")
-            answer_state = None  # Wether the answer is correct or incorrect
-            print(f"Correct_answer: {quiz_items_dict[index].correct_answer}")
 
-            # If the answer is the same as the correct answer
+            # Print the question in a question-options format
+            print(display_question(quiz_items_dict,index)) 
+
+            # Request for an answer 
+            input_answer = input("Answer: ")  
+
+            # Tells whether the input answer is correct (True) or incorrect (False)
+            answer_state = None 
+
+            # If the input answer is the same as the correct answer
             if f"A: {input_answer.lower()}" == quiz_items_dict[index].correct_answer:  
-                answer_state = True
+                answer_state = True  # Mark the answer as True, indicating that the answer is correct
 
-            # Otherwise
+            # If it is not
             else:
-                answer_state = False
+                answer_state = False  # Mark as false, indicating that it is incorrect
 
-            # Record the answer and its state in a list
+            # Record the answer in a dictionary. Use the question's index as the key and it's state as the value
             finished_items[index] = answer_state
     print(finished_items)
