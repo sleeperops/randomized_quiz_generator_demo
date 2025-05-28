@@ -5,7 +5,7 @@
 # Leads to the directory of the file
 import random
 
-quiz_directory = r"quizes/questions.txt"
+quiz_directory = r"quizzes/questions.txt"
 
 class Item:
 
@@ -88,8 +88,6 @@ def shuffle(min,max):
             shuffled_sequence.append(random_num)  # Add it to the list
 
     return shuffled_sequence
-
-print(shuffle(1,10))
     
 # UI ----------------------
 def display_question(question_dict, question_index):
@@ -106,6 +104,17 @@ def display_question(question_dict, question_index):
 {question_dict[question_index].option_d}
 """
 
+def score_count(result_summary):
+    """
+    Evaluates the amount of correct answer from a result summary
+    Accepts the result summary dictionary of a quiz
+    Returns the number of correct answers in a result summary
+    """
+    true_count = 0
+    for key in result_summary:  # Loop through results of the summary
+        if result_summary[key] == True:  # If an item has a value of True
+            true_count += 1  # Increment the counter by one
+    return true_count 
 
 # UI ----------------------
 # Initialization
@@ -123,8 +132,8 @@ while True:
     # Initialize randomize_index. Stores a random sequence of numbers based on the range of the given dictionary.
     randomized_index = shuffle(1, len(quiz_items_dict))
 
-    # Initialize finished_items dictionary. Records the finished items along with the results.
-    finished_items = {}
+    # Initialize quiz_result_summary dictionary. Records the finished items along with the results.
+    quiz_result_summary = {}
 
     # Asks the user for permission to start the test
     input_start_option = input("Start the test? (any key to start, x to exit): ")
@@ -155,5 +164,9 @@ while True:
                 answer_state = False  # Mark as false, indicating that it is incorrect
 
             # Record the answer in a dictionary. Use the question's index as the key and it's state as the value
-            finished_items[index] = answer_state
-    print(finished_items)
+            quiz_result_summary[index] = answer_state
+
+    print(quiz_result_summary)
+
+    # Prints the score over the total number of items
+    print(f" Total Score: {score_count(quiz_result_summary)}/{len(quiz_items_dict)}")
