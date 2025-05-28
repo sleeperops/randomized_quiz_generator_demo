@@ -1,5 +1,5 @@
 # Directory of the quiz file that stores all formatted questions
-quiz_directory = r"quizes/questions.txt"
+quiz_directory = r"quizzes/questions.txt"
 
 #question_id_tracker = 0
 
@@ -30,7 +30,7 @@ def write_option(file_directory):
     with open(file_directory, "a") as fd:
         for char in "abcd":  # Creates a block of string with that contains the options
             option = input(f"Option {char}: ")
-            fd.write(f'''{char}). {option}
+            fd.write(f'''{option}
 ''')
 
 
